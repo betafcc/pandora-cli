@@ -1,3 +1,9 @@
+project_slug() {
+  local name="$1"
+  echo "$(date -I)-$(slugify $(git_initials))-$(slugify "$name")"
+}
+
+
 git_initials() {
   echo $(
     git config user.name |
