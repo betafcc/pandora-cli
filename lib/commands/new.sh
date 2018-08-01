@@ -10,6 +10,18 @@ new_command() {
   echo "[tool.pandora]" >> pyproject.toml
   echo "name = \"$name\"" >> pyproject.toml
   echo "date = $(date -I)" >> pyproject.toml
+
+  mkdir src
+  touch src/__init__.py
+
+  poetry add \
+    tornado="<5" \
+    ipython \
+    jupyterlab \
+    numpy \
+    pandas \
+    matplotlib \
+    altair
 }
 
 
