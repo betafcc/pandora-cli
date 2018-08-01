@@ -1,5 +1,17 @@
 new_command() {
-  local name="${1}"
+  local name
+  local run
+  if [ "${1}" = "--run" ]; then
+    name="${2}"
+    run=true
+  elif [ "${2}" = "--run" ]; then
+    name="${1}"
+    run=true
+  else
+    name="${1}"
+    run=false
+  fi
+
   local project_dir=$(project_slug "$name")
   mkdir "${project_dir}"
   cd "${project_dir}"
@@ -22,6 +34,12 @@ new_command() {
     pandas \
     matplotlib \
     altair
+
+  if $run; then
+    local file="0-${project_dir}.ipynb"
+    cat "$(pandora_dir)/templates/basic.ipynb" > ${file}
+    poetry run jupyter lab ${file}
+  fi
 }
 
 
