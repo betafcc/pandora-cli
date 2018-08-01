@@ -12,12 +12,14 @@ new_command() {
     run=false
   fi
 
+  # Create project directory
   local project_dir=$(project_slug "$name")
   mkdir "${project_dir}"
   cd "${project_dir}"
 
   poetry init -n -q
 
+  # Add project metadata
   echo "" >> pyproject.toml
   echo "[tool.pandora]" >> pyproject.toml
   echo "name = \"$name\"" >> pyproject.toml
@@ -26,6 +28,7 @@ new_command() {
   mkdir src
   touch src/__init__.py
 
+  # Add dependencies
   poetry add \
     tornado="<5" \
     ipython \
