@@ -1,3 +1,18 @@
+new_command() {
+  local name="${1}"
+  local project_dir=$(project_slug "$name")
+  mkdir "${project_dir}"
+  cd "${project_dir}"
+
+  poetry init -n -q
+
+  echo "" >> pyproject.toml
+  echo "[tool.pandora]" >> pyproject.toml
+  echo "name = \"$name\"" >> pyproject.toml
+  echo "date = $(date -I)" >> pyproject.toml
+}
+
+
 project_slug() {
   local name="$1"
   echo "$(date -I)-$(slugify $(git_initials))-$(slugify "$name")"
