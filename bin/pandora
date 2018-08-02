@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+source "$(dirname "$(dirname "$0")")/lib/utils.sh"
+source "$(dirname "$(dirname "$0")")/lib/commands/help.sh"
+source "$(dirname "$(dirname "$0")")/lib/commands/new.sh"
+
+
+case $1 in
+
+"--version")
+    pandora_version "${@:2}";;
+
+"new")
+    new_command "${@:2}";;
+
+"help")
+    help_command "${@:2}";;
+*)
+  help_command
+  exit 1;;
+esac
