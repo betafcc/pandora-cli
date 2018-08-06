@@ -3,6 +3,7 @@
 source "$(dirname "$(dirname "$0")")/lib/utils.sh"
 source "$(dirname "$(dirname "$0")")/lib/commands/help.sh"
 source "$(dirname "$(dirname "$0")")/lib/commands/new.sh"
+source "$(dirname "$(dirname "$0")")/lib/commands/upgrade.sh"
 
 
 case $1 in
@@ -12,6 +13,9 @@ case $1 in
 
 "new")
     new_command "${@:2}";;
+
+"upgrade")
+    upgrade_commande "${@:2}";;
 
 "help")
     help_command "${@:2}";;
