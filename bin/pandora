@@ -15,7 +15,7 @@ case $1 in
     new_command "${@:2}";;
 
 "upgrade")
-    upgrade_commande "${@:2}";;
+    upgrade_command "${@:2}";;
 
 "help")
     help_command "${@:2}";;
