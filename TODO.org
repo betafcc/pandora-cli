@@ -1,0 +1,7 @@
+* Commands [0/1]
+  - [ ] list
+    Lists commited projects in date order
+
+  - [ ] clone <grep filter> [-y|--yes]
+    Gives a 'select choice in filtered' query for selecting a project to clone,
+    if '-y' flag, returns most recent match
