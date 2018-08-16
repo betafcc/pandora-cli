@@ -1,25 +1,17 @@
-#!/usr/bin/env bash
+#!/usr/bin/env node
+const program = require('commander')
 
-source "$(dirname "$(dirname "$0")")/lib/utils.sh"
-source "$(dirname "$(dirname "$0")")/lib/commands/help.sh"
-source "$(dirname "$(dirname "$0")")/lib/commands/new.sh"
-source "$(dirname "$(dirname "$0")")/lib/commands/upgrade.sh"
+program
+  .version('0.1.0')
 
+program
+  .command('new <name>', 'creates a pandora project')
 
-case $1 in
+program
+  .command('list', 'lists previous projects')
 
-"--version")
-    pandora_version "${@:2}";;
+program
+  .command('clone', 'clones a previous project')
 
-"new")
-    new_command "${@:2}";;
-
-"upgrade")
-    upgrade_command "${@:2}";;
-
-"help")
-    help_command "${@:2}";;
-*)
-  help_command
-  exit 1;;
-esac
+program
+  .parse(process.argv)

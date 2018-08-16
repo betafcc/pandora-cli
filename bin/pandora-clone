@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+const program = require('commander')
+const newCommand = require('../src/commands/clone')
+
+program
+  .option('-y, --yes', 'accepts the most recent match')
+  .option('-f, --filter <regex>', 'regex to filter the results', s => new RegExp(s))
+  .parse(process.argv)
+
+newCommand(program)

@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+const program = require('commander')
+const newCommand = require('../src/commands/new')
+
+program
+  .arguments('<name>')
+  .parse(process.argv)
+
+newCommand(program)
