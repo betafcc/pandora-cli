@@ -1,6 +1,7 @@
 const child_process = require('child_process')
 const {promisify} = require('util')
 
+const exec = promisify(child_process.exec)
 const readFile = promisify(require('fs').readFile)
 
 const tmp = require('tmp')
@@ -65,6 +66,7 @@ const choose = (message, choices) =>
 module.exports = {
   clone,
   tmpdir,
+  exec,
   readFile,
   withRepository,
   spawn,
