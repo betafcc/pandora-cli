@@ -18,8 +18,8 @@ module.exports = {
   mkdir,
   cd,
   touch,
-  spawn
-  // writeToml,
-  // readToml,
-  // tomlDate
+  spawn,
+  writeToml,
+  readToml,
+  tomlDate
 }
