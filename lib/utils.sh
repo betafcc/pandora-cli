@@ -1,3 +1,7 @@
+project_pregex='\d{4}-\d{2}-\d{2}-\w+-[a-z0-9-]+'
+notebook_pregex='\d+-\d{4}-\d{2}-\d{2}-\w+-[a-z0-9-]+'
+
+
 pandora_version() {
   echo '0.1.0'
 }
