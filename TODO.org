@@ -1,7 +1,12 @@
-* Commands [0/1]
+* Commands [0/2]
   - [ ] list
     Lists commited projects in date order
 
   - [ ] clone <grep filter> [-y|--yes]
     Gives a 'select choice in filtered' query for selecting a project to clone,
     if '-y' flag, returns most recent match
+
+  - [ ] notebook [name]
+    if not name, open jupyter lab in current directory
+    if name is a file in current dir, open it on jupyter lab
+    else, creates a new notebook ${n}-$(date -I)-$(slugify "${name}").ipynb
