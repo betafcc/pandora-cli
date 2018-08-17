@@ -1,4 +1,9 @@
-* Commands [0/2]
+* Commands [0/6]
+  - [ ] new [name] [-o|--open] [0/2]
+    - [ ] change --run flag to --open
+    - [ ] Change name to be optional
+
+
   - [ ] list
     Lists commited projects in date order
 
@@ -6,7 +11,26 @@
     Gives a 'select choice in filtered' query for selecting a project to clone,
     if '-y' flag, returns most recent match
 
-  - [ ] notebook [name]
+  - [ ] write [name] [-o|--open]
+    try to open `name` as a path
     if not name, open jupyter lab in current directory
-    if name is a file in current dir, open it on jupyter lab
-    else, creates a new notebook ${n}-$(date -I)-$(slugify "${name}").ipynb
+    else, creates a new notebook ${n}-$(date -I)-$(initials)-$(slugify "${name}").ipynb
+
+  - [ ] open [path]
+
+  - [ ] namingUtil
+    regex.project
+    regex.notebook
+
+    project({
+        date : Date,
+        author : String,
+        name? : String
+    }) -> String
+
+    notebook({
+        n : Int,
+        date : Date,
+        author : String,
+        name? : String
+    }) -> String

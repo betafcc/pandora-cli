@@ -1,3 +1,0 @@
-pandora --help                          Shows this help message
-pandora new <name>                      Create new pandora insight named <name>
-pandora upgrade                         Upgrade pandora-cli
