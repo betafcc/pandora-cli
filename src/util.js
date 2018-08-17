@@ -31,17 +31,18 @@ const tomlFileAssign = (file, obj) =>
 
 const withRepository = async (f, url) => {
   const {path, cleanup} = await tmpdir()
-  await clone(url, path)
 
-  // Using Promise.resolve will guarantee the function
-  // will run until the end etiher if it's a promise-returning
-  // one or a normal/sync. Therefore, the folder is guaranteed
-  // not to be cleaned-up until them
-  const result = await Promise.resolve(f(path))
+  try {
+    await clone(url, path)
 
-  cleanup()
-
-  return result
+    // Using Promise.resolve will guarantee the function
+    // will run until the end etiher if it's a promise-returning
+    // one or a normal/sync. Therefore, the folder is guaranteed
+    // not to be cleaned-up until them
+    return await Promise.resolve(f(path))
+  } finally {
+    cleanup()
+  }
 }
 
 const spawn = (shellCommand, options) => {
