@@ -45,6 +45,17 @@ const withRepository = async (f, url) => {
   }
 }
 
+const withChdir = async (path, f) => {
+  const oldPath = process.cwd()
+  process.chdir(path)
+
+  try {
+    return await Promise.resolve(f())
+  } finally {
+    process.chdir(oldPath)
+  }
+}
+
 const spawn = (shellCommand, options) => {
   const process = childProcess
     .spawn(
