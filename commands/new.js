@@ -2,12 +2,11 @@ const config = require('../config')
 const {
   projectSlug,
   mkdir,
-  cd,
+  cp,
   touch,
   spawn,
-  writeToml,
-  readToml,
-  tomlDate
+  withChdir,
+  tomlFileAssign
 } = require('../src/new')
 
 const dependencies = [
@@ -25,28 +24,28 @@ module.exports = async ({ name, run }) => {
 
   // create project directory
   await mkdir(_projectSlug)
-  await cd(_projectSlug)
 
-  await mkdir('src')
-  await touch('src/__init__.py')
+  await withChdir(_projectSlug, async () => {
+    await mkdir('src')
+    await touch('src/__init__.py')
 
-  // init project
-  await spawn('poetry init -n -q')
-  await spawn(`poetry add ${dependencies.join(' ')}`)
+    // init project
+    await spawn('poetry init -n -q')
+    await spawn(`poetry add ${dependencies.join(' ')}`)
 
-  // add project metadata
-  await writeToml('pyproject.toml', {
-    ...await readToml('pyproject.toml'),
-    name,
-    date: tomlDate(date)
+    // add project metadata
+    await tomlFileAssign('pyproject.toml', {
+      name,
+      date: new Date()
+    })
+
+    if (run) {
+      const file = `0-${_projectSlug}.ipynb`
+      await cp(
+        config.templates.notebook,
+        file
+      )
+      await spawn(`poetry run jupyter lab ${file}`)
+    }
   })
-
-  if (run) {
-    const file = `0-${_projectSlug}.ipynb`
-    await cp(
-      config.templates.notebook,
-      file
-    )
-    await spawn(`poetry run jupyter lab ${file}`)
-  }
 }

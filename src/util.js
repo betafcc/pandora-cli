@@ -95,5 +95,6 @@ module.exports = {
   input,
   choose,
   touch,
+  withChdir,
   tomlFileAssign
 }
