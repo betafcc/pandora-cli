@@ -24,6 +24,7 @@
     "standard": "^11.0.1"
   },
   "dependencies": {
+    "@iarna/toml": "^2.0.0",
     "@sindresorhus/slugify": "^0.3.0",
     "commander": "^2.17.1",
     "inquirer": "^6.1.0",

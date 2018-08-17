@@ -1,6 +1,8 @@
+const {mkdir, copyFile} = require('fs').promises
+
 const moment = require('moment')
 const slugify = require('@sindresorhus/slugify')
-const {mkdir, cd, touch, spawn, exec} = require('./util')
+const {spawn, exec, touch, tomlFileAssign} = require('./util')
 
 const projectSlug = async (name) =>
   `${moment().format('YYYY-MM-DD')}-${slugify(await gitInitials())}-${slugify(name)}`
@@ -16,10 +18,8 @@ const gitInitials = async () =>
 module.exports = {
   projectSlug,
   mkdir,
-  cd,
+  copyFile,
   touch,
   spawn,
-  writeToml,
-  readToml,
-  tomlDate
+  tomlFileAssign
 }
