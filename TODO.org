@@ -1,4 +1,4 @@
-* Commands [0/6]
+* Commands [1/6]
   - [-] new [name] [-o|--open] [1/2]
     - [X] change --run flag to --open
     - [ ] Change name to be optional
@@ -16,7 +16,7 @@
     if not name, open jupyter lab in current directory
     else, creates a new notebook ${n}-$(date -I)-$(initials)-$(slugify "${name}").ipynb
 
-  - [ ] open [path]
+  - [X] open [path]
 
   - [ ] namingUtil
     regex.project

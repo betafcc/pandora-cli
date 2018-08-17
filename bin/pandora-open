@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+const program = require('commander')
+const openCommand = require('../commands/open')
+
+program
+  .arguments('[path]')
+  .parse(process.argv)
+
+openCommand({
+  ...program,
+  path: program.args[0]
+})
