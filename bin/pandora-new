@@ -4,7 +4,7 @@ const newCommand = require('../commands/new')
 
 program
   .arguments('<name>')
-  .option('--run', 'opens jupyter lab after init')
+  .option('-o, --open', 'opens jupyter lab after init')
   .parse(process.argv)
 
 newCommand({

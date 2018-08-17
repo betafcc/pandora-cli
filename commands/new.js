@@ -19,7 +19,7 @@ const dependencies = [
   'altair'
 ]
 
-module.exports = async ({ name, run }) => {
+module.exports = async ({ name, open }) => {
   const _projectSlug = await projectSlug(name)
 
   // create project directory
@@ -41,7 +41,7 @@ module.exports = async ({ name, run }) => {
       }}
     })
 
-    if (run) {
+    if (open) {
       const file = `0-${_projectSlug}.ipynb`
       await copyFile(
         config.templates.notebook,

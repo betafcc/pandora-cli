@@ -1,6 +1,6 @@
 * Commands [0/6]
-  - [ ] new [name] [-o|--open] [0/2]
-    - [ ] change --run flag to --open
+  - [-] new [name] [-o|--open] [1/2]
+    - [X] change --run flag to --open
     - [ ] Change name to be optional
 
 
