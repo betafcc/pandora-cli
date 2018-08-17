@@ -1,11 +1,15 @@
-const child_process = require('child_process')
+const childProcess = require('child_process')
 const {promisify} = require('util')
 
-const exec = promisify(child_process.exec)
-const readFile = promisify(require('fs').readFile)
+const exec = promisify(childProcess.exec)
+const {writeFile, readFile} = require('fs').promises
 
 const tmp = require('tmp')
+const toml = require('@iarna/toml')
 const prompt = require('inquirer').createPromptModule()
+
+const touch = (file, options) =>
+  writeFile(file, '', options)
 
 const clone = (url, dest, quiet = true) =>
   spawn(`git clone ${url} ${dest || ''}`, {
@@ -18,6 +22,12 @@ const tmpdir = () =>
       (err) ? reject(err) : resolve({ path, cleanup })
     )
   )
+
+const tomlFileAssign = (file, obj) =>
+  readFile(file)
+    .then(toml.parse)
+    .then(_ => Object.assign(_, obj))
+    .then(_ => writeFile(file, _))
 
 const withRepository = async (f, url) => {
   const {path, cleanup} = await tmpdir()
@@ -35,7 +45,7 @@ const withRepository = async (f, url) => {
 }
 
 const spawn = (shellCommand, options) => {
-  const process = child_process
+  const process = childProcess
     .spawn(
       shellCommand,
       Object.assign({stdio: 'inherit', shell: true}, options)
@@ -67,10 +77,11 @@ module.exports = {
   clone,
   tmpdir,
   exec,
-  readFile,
   withRepository,
   spawn,
   isGithubUrl,
   input,
-  choose
+  choose,
+  touch,
+  tomlFileAssign
 }
