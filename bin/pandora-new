@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const program = require('commander')
-const newCommand = require('../src/commands/new')
+const newCommand = require('../commands/new')
 
 program
   .arguments('<name>')

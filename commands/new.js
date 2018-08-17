@@ -2,11 +2,11 @@ const config = require('../config')
 const {
   projectSlug,
   mkdir,
-  cp,
+  copyFile,
   touch,
   spawn,
   withChdir,
-  tomlFileAssign
+  tomlFileDeepAssign
 } = require('../src/new')
 
 const dependencies = [
@@ -34,14 +34,16 @@ module.exports = async ({ name, run }) => {
     await spawn(`poetry add ${dependencies.join(' ')}`)
 
     // add project metadata
-    await tomlFileAssign('pyproject.toml', {
-      name,
-      date: new Date()
+    await tomlFileDeepAssign('pyproject.toml', {
+      tool: { pandora: {
+        name,
+        date: new Date()
+      }}
     })
 
     if (run) {
       const file = `0-${_projectSlug}.ipynb`
-      await cp(
+      await copyFile(
         config.templates.notebook,
         file
       )
