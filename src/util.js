@@ -6,6 +6,7 @@ const {writeFile, readFile} = require('fs').promises
 
 const tmp = require('tmp')
 const toml = require('@iarna/toml')
+const deepMerge = require('@betafcc/deep-merge')
 const prompt = require('inquirer').createPromptModule()
 
 const touch = (file, options) =>
@@ -23,10 +24,14 @@ const tmpdir = () =>
     )
   )
 
-const tomlFileAssign = (file, obj) =>
+const tomlFileDeepAssign = (file, obj) =>
   readFile(file)
     .then(toml.parse)
-    .then(_ => Object.assign(_, obj))
+    .then(_ => deepMerge(_, obj))
+    .then(toml.stringify)
+    // @iarna/toml stringify gives non-optional indented output
+    // this takes it off
+    .then(_ => _.replace(/(\r?\n)( +)/g, '$1'))
     .then(_ => writeFile(file, _))
 
 const withRepository = async (f, url) => {
@@ -96,5 +101,5 @@ module.exports = {
   choose,
   touch,
   withChdir,
-  tomlFileAssign
+  tomlFileDeepAssign
 }
