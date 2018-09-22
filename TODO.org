@@ -1,7 +1,7 @@
-* Commands [1/6]
-  - [-] new [name] [-o|--open] [1/2]
-    - [X] change --run flag to --open
+* Commands [0/3]
+  - [ ] new [name] [-o|--open] [0/2]
     - [ ] Change name to be optional
+    - [ ] Update to use namingUtil in new command
 
 
   - [ ] list
@@ -10,27 +10,3 @@
   - [ ] clone <grep filter> [-y|--yes]
     Gives a 'select choice in filtered' query for selecting a project to clone,
     if '-y' flag, returns most recent match
-
-  - [ ] write [name] [-o|--open]
-    try to open `name` as a path
-    if not name, open jupyter lab in current directory
-    else, creates a new notebook ${n}-$(date -I)-$(initials)-$(slugify "${name}").ipynb
-
-  - [X] open [path]
-
-  - [ ] namingUtil
-    regex.project
-    regex.notebook
-
-    project({
-        date : Date,
-        author : String,
-        name? : String
-    }) -> String
-
-    notebook({
-        n : Int,
-        date : Date,
-        author : String,
-        name? : String
-    }) -> String
