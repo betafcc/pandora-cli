@@ -1,37 +1,25 @@
 const config = require('../config')
 const {
   projectSlug,
-  mkdir,
-  copyFile,
-  touch,
-  spawn,
+  clone,
   withChdir,
-  tomlFileDeepAssign
+  spawn,
+  tomlFileDeepAssign,
+  copyFile
 } = require('../src/new')
-
-const dependencies = [
-  'tornado="<5"',
-  'ipython',
-  'jupyterlab',
-  'numpy',
-  'pandas',
-  'matplotlib',
-  'altair'
-]
 
 module.exports = async ({ name, open }) => {
   const _projectSlug = await projectSlug(name)
 
-  // create project directory
-  await mkdir(_projectSlug)
-
+  // create project directory from boilerplate
+  await clone(
+    'https://github.com/betafcc/data-science-boilerplate',
+    _projectSlug,
+    false
+  )
   await withChdir(_projectSlug, async () => {
-    await mkdir('src')
-    await touch('src/__init__.py')
-
     // init project
-    await spawn('poetry init -n -q')
-    await spawn(`poetry add ${dependencies.join(' ')}`)
+    await spawn('make init')
 
     // add project metadata
     await tomlFileDeepAssign('pyproject.toml', {
@@ -40,6 +28,9 @@ module.exports = async ({ name, open }) => {
         date: new Date()
       }}
     })
+
+    // run default boilerplate install
+    await spawn('make install')
 
     if (open) {
       const file = `0-${_projectSlug}.ipynb`
