@@ -53,21 +53,27 @@ const notebook = async ({
   date,
   author,
   name
-}) =>
-  (index === undefined) ? await notebook({
-    index: 1 + (await _currentDirMaxIndex() || -1),
-    date,
-    author,
-    name
-  })
-    : index + '-' + await project({index, date, author, name})
+}) => {
+  if (index === undefined) {
+    const currentDirMaxIndex = await _currentDirMaxIndex()
+
+    return await notebook({
+      index: 1 + ((currentDirMaxIndex === undefined) ? -1 : currentDirMaxIndex),
+      date,
+      author,
+      name
+    })
+  }
+
+  return index + '-' + await project({index, date, author, name}) + '.ipynb'
+}
 
 const _currentDirMaxIndex = async () =>
   (await readdir(process.cwd()))
     .map(parse)
     .filter(el => !!el)
     .map(el => el.index)
-    .sort()
+    .sort((a, b) => b - a)
     [0]
 
 module.exports = {
