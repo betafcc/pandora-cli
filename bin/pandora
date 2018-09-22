@@ -8,6 +8,9 @@ program
   .command('new <name>', 'creates a pandora project')
 
 program
+  .command('write <name>', 'creates a new notebook')
+
+program
   .command('open [path]', 'opens jupyter lab')
 
 program

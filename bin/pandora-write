@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+const program = require('commander')
+const writeCommand = require('../commands/write')
+
+program
+  .arguments('<name>')
+  .option('-o, --open', 'opens the created notebook')
+  .parse(process.argv)
+
+writeCommand({
+  ...program,
+  name: program.args[0]
+})
